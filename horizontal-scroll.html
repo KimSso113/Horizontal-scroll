@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scroll-snap</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        * {height: 100%; padding: 0; margin: 0 auto; }
+
+        .portfolio_content {height: 100%;}
+        .portfolio_content .scrollx {display: flex; height: 100%;}
+        .portfolio_content .project {width: 100%; flex: 0 0 100%; height: 100%;}
+        .portfolio_content .tl_box {width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
+        .portfolio_content .tl_box h1 {font-size: 80px; height: fit-content;}
+        .project:nth-child(even) {background: #dbdbdb;}
+    </style>
+</head>
+<body>
+    <div class="portfolio_content">
+        <div class="scrollx">
+          <div class="project" id="project1">
+            <div class="tl_box">
+                <h1>
+                    안녕하세요
+                </h1>
+            </div>
+          </div>
+          <div class="project" id="project2">
+            <div class="tl_box">
+                <h1>
+                    반가워요
+                </h1>
+            </div>
+          </div>
+          <div class="project" id="project3">
+            <div class="tl_box">
+                <h1>
+                    잘있어요
+                </h1>
+            </div>
+          </div>
+          <div class="project" id="project4">
+            <div class="tl_box">
+                <h1>
+                    다시만나요
+                </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</body>
+
+<script>
+    $(document).ready(function() {
+        $(".portfolio_content .scrollx").on('wheel', '.project', function(e) {
+            e.preventDefault();        
+            if (e.originalEvent.wheelDelta >= 0) {
+                if ($(this).prev().length) {
+                    let prev = "#" + $(this).prev().attr("id");
+                    document.querySelector(prev).scrollIntoView({behavior: 'smooth'});
+                }
+            } else {
+                if ($(this).next().length) {
+                    let next = "#" + $(this).next().attr("id");
+                    document.querySelector(next).scrollIntoView({behavior: 'smooth'});
+                }
+            }
+        });
+    });
+</script>
+</html>
